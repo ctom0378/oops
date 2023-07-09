@@ -1,0 +1,3 @@
+/usr/lib/jvm/java-8-openjdk-amd64/bin/javac Banner.java
+
+/usr/lib/jvm/java-8-openjdk-amd64/bin/appletviewer run.html
