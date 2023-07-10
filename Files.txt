@@ -1,0 +1,1638 @@
+1 | P a g e
+1. Write a java program for Banking Database.
+Source Code:
+import java.util.Scanner; 
+class BankDetails { 
+ private String accno; 
+ private String name; 
+ private String acc_type; 
+ private int balance; 
+ Scanner sc = new Scanner(System.in); 
+ //method to open new account 
+ public void openAccount() { 
+ System.out.print("Enter Account No: "); 
+ accno = sc.next(); 
+ System.out.print("Enter Account type: "); 
+ acc_type = sc.next(); 
+ System.out.print("Enter Name: "); 
+ name = sc.next(); 
+ System.out.print("Enter Balance: "); 
+ balance = sc.nextInt(); 
+ } 
+ //method to display account details 
+ public void showAccount() { 
+ System.out.println("Name of account holder: " + name); 
+ System.out.println("Account no.: " + accno); 
+ System.out.println("Account type: " + acc_type); 
+ System.out.println("Balance: " + balance); 
+ } 
+ //method to deposit money 
+ public void deposit() { 
+ int amt; 
+ System.out.println("Enter the amount you want to deposit: "); 
+ amt = sc.nextInt(); 
+ balance = balance + amt; 
+ } 
+ //method to withdraw money 
+ public void withdrawal() { 
+ int amt; 
+ System.out.println("Enter the amount you want to withdraw: "); 
+ amt = sc.nextInt(); 
+ if (balance >= amt) { 
+ balance = balance - amt; 
+ System.out.println("Balance after withdrawal: " + 
+balance); 
+ } else { 
+ System.out.println("Your balance is less than " + amt + 
+"\tTransaction failed...!!" ); 
+ } 
+ } 
+ 
+2 | P a g e
+ //method to search an account number 
+ 
+ public boolean search(String ac_no) { 
+ if (accno.equals(ac_no)) { 
+ showAccount(); 
+ return (true); 
+ } 
+ return (false); 
+ } 
+} 
+public class BankingApp { 
+ public static void main(String arg[]) { 
+ Scanner sc = new Scanner(System.in); 
+ 
+ //create initial accounts 
+ 
+ System.out.print("How many number of customers do you want to 
+input? "); 
+ int n = sc.nextInt(); 
+ BankDetails C[] = new BankDetails[n]; 
+ for (int i = 0; i < C.length; i++) { 
+ C[i] = new BankDetails(); 
+ C[i].openAccount(); 
+ } 
+ 
+ // loop runs until number 5 is not pressed to exit 
+ 
+ int ch; 
+ do { 
+ System.out.println("\n *Banking System Application*"); 
+ System.out.println("1. Display all account details \n 2. 
+Search by Account number\n 3. Deposit the amount \n 4. Withdraw the 
+amount \n 5.Exit "); 
+ System.out.println("Enter your choice: "); 
+ ch = sc.nextInt(); 
+ switch (ch) { 
+ case 1: 
+ for (int i = 0; i < C.length; i++) { 
+ C[i].showAccount(); 
+ } 
+break; 
+ case 2: 
+ System.out.print("Enter account no. you want 
+to search: "); 
+ String ac_no = sc.next(); 
+boolean found = false; 
+for (int i = 0; i < C.length; i++) { 
+ found = C[i].search(ac_no); 
+if (found) { 
+ break; 
+3 | P a g e
+ } 
+ } 
+if (!found) { 
+ System.out.println("Search failed! Account 
+doesn't exist..!!"); 
+ } 
+break; 
+ case 3: 
+ System.out.print("Enter Account no. : "); 
+ac_no = sc.next(); 
+found = false; 
+for (int i = 0; i < C.length; i++) { 
+ found = C[i].search(ac_no); 
+if (found) { 
+ C[i].deposit(); 
+break; 
+ } 
+ } 
+if (!found) { 
+ System.out.println("Search failed! Account 
+doesn't exist..!!"); 
+ } 
+break; 
+ case 4: 
+ System.out.print("Enter Account No : "); 
+ac_no = sc.next(); 
+ found = false; 
+ for (int i = 0; i < C.length; i++) { 
+ found = C[i].search(ac_no); 
+if (found) { 
+ C[i].withdrawal(); 
+ break; 
+ } 
+ } 
+if (!found) { 
+ System.out.println("Search failed! Account 
+doesn't exist..!!"); 
+ } 
+ break; 
+ case 5: 
+ System.out.println("See you soon..."); 
+break; 
+ } 
+ } 
+ while (ch != 5); 
+ } 
+ }
+4 | P a g e
+Output:
+.
+5 | P a g e
+2. Write a java program to copy text file to another text file.
+Source Code:
+import java.io.*; 
+import java.util.*; 
+class Copyfile { 
+public static void main(String arg[]) throws Exception { 
+ Scanner sc = new Scanner(System.in); 
+ System.out.print("Provide source file name :"); 
+ String sfile = sc.next(); 
+ System.out.print("Provide destination file name :"); 
+ String dfile = sc.next(); 
+ FileReader fin = new FileReader(sfile); 
+ FileWriter fout = new FileWriter(dfile, true); 
+ int c; 
+ while ((c = fin.read()) != -1) { 
+ fout.write(c); 
+ } 
+ System.out.println("Copy finish..."); 
+ fin.close(); 
+ fout.close(); 
+} 
+}
+Output:
+6 | P a g e
+3. Write a java program to show Inet Address.
+Source Code:
+// Demonstrate Inet address
+import java.net.*;
+// driving code
+class Inet{
+ public static void main(String args[]) throws 
+UnknownHostException{
+ // obtaining localhost address
+ InetAddress inetaddress_localhost = 
+InetAddress.getLocalHost();
+ System.out.println(String.format("LocalHost address: 
+%s",inetaddress_localhost));
+ // obtaining all address by URL
+ InetAddress[] inetAddress = 
+InetAddress.getAllByName("www.google.com");
+ for(int i=0; i<inetAddress.length; i++){
+ System.out.println(inetAddress[i]);
+ }
+ }
+}
+Output:
+7 | P a g e
+4. Write a java program to take input from keyboard & write into a file
+Source Code:
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+public class KeyToFile {
+ public static void main(String[] args) {
+ Scanner scanner = new Scanner(System.in);
+ 
+ System.out.print("Enter the text to be saved: ");
+ String input = scanner.nextLine();
+ 
+ System.out.print("Enter the file name: ");
+ String fileName = scanner.nextLine();
+ 
+ try (BufferedWriter writer = new BufferedWriter(new 
+FileWriter(fileName))) {
+ writer.write(input);
+ System.out.println("Input saved to the file
+successfully.");
+ } catch (IOException e) {
+ System.out.println("An error occurred while saving the 
+input to the file.");
+ e.printStackTrace();
+ }
+ scanner.close();
+ }
+}
+Output:
+8 | P a g e
+5. Write a java program to Meta Data of an URL.
+Source Code:
+import java.util.Scanner;
+import java.net.URL;
+import java.net.MalformedURLException;
+class MetaURL {
+ private static Scanner scan = new Scanner(System.in);
+ public static void main(String args[]) throws 
+MalformedURLException{
+ System.out.print("Enter URL: ");
+ String urlString = scan.nextLine();
+ System.out.println("The Source URL is: "+urlString);
+ 
+ URL url = new URL(urlString);
+ System.out.println("Applet: "+ url.getHost());
+ System.out.println("Port: "+ url.getPort());
+ System.out.println("Protocol: "+ url.getProtocol());
+ System.out.println("URL: "+ url.getFile());
+ scan.close();
+ }
+}
+Output:
+6. Write a java program for implementing Shipping Database .
+Source Code:
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+// Interface for the shipping database
+interface ShippingInterface {
+ void addPackage(Package pkg);
+ void removePackage(int packageId);
+ void displayPackages();
+}
+9 | P a g e
+// ShippingDatabase class implementing the ShippingInterface
+class ShippingDatabase implements ShippingInterface {
+ private List<Package> packages;
+ public ShippingDatabase() {
+ packages = new ArrayList<>();
+ }
+ @Override
+ public void addPackage(Package pkg) {
+ packages.add(pkg);
+ System.out.println("Package added successfully.");
+ }
+ @Override
+ public void removePackage(int packageId) {
+ for (int i = 0; i < packages.size(); i++) {
+ Package pkg = packages.get(i);
+ if (pkg.getPackageId() == packageId) {
+ packages.remove(i);
+ System.out.println("Package removed successfully.");
+ return;
+ }
+ }
+ System.out.println("Package with ID " + packageId + " not 
+found.");
+ }
+ @Override
+ public void displayPackages() {
+ if (packages.isEmpty()) {
+ System.out.println("No packages in the database.");
+ return;
+ }
+ System.out.println("Packages in the database:");
+ for (Package pkg : packages) {
+ System.out.println(pkg.toString());
+ }
+ }
+}
+// Package class representing a package
+class Package {
+ private int packageId;
+ private String packageName;
+ public Package(int packageId, String packageName) {
+ this.packageId = packageId;
+10 | P a g e
+ this.packageName = packageName;
+ }
+ public int getPackageId() {
+ return packageId;
+ }
+ @Override
+ public String toString() {
+ return "Package ID: " + packageId + ", Name: " + packageName;
+ }
+}
+// Shipper class to demonstrate the usage of the ShippingDatabase
+// class Shipper {
+ class ShippingDB {
+ public static void main(String[] args) {
+ ShippingDatabase database = new ShippingDatabase();
+ Scanner scanner = new Scanner(System.in);
+ int choice;
+ do {
+ System.out.println("Shipping Database Menu:");
+ System.out.println("1. Add Package");
+ System.out.println("2. Remove Package");
+ System.out.println("3. Display Packages");
+ System.out.println("4. Exit");
+ System.out.print("Enter your choice: ");
+ choice = scanner.nextInt();
+ switch (choice) {
+ case 1:
+ System.out.print("Enter package ID: ");
+int packageId = scanner.nextInt();
+ scanner.nextLine(); // Consume the newline 
+character
+ System.out.print("Enter package name: ");
+String packageName = scanner.nextLine();
+Package pkg = new Package(packageId, packageName);
+ database.addPackage(pkg);
+ break;
+ case 2:
+ System.out.print("Enter package ID to remove: ");
+int removePackageId = scanner.nextInt();
+database.removePackage(removePackageId);
+break;
+ case 3:
+ database.displayPackages();
+break;
+ case 4:
+11 | P a g e
+ System.out.println("Exiting...");
+ break;
+ default:
+ System.out.println("Invalid choice. Please try 
+again.");
+ break;
+ }
+ System.out.println();
+ } while (choice != 4);
+ scanner.close();
+ }
+}
+Output:
+12 | P a g e
+7. Write a java program for implementing Transport Ticket System.
+Source Code:
+import java.util.Scanner;
+import Transport.*;
+public class Main{
+private Scanner scan = new Scanner(System.in);
+public static void main(String args[]){
+// Bus bus = new Bus[100];
+Bus bus = new Bus(123,"KNJ","SLH");
+bus.showDetails();
+bus.costPerKM();
+}
+}
+Output:
+8. Write a java program for implement priority of thread.
+Source Code:
+class ThreadDemo implements Runnable{
+public Thread t;
+ThreadDemo(String threadName){t = new Thread(this, threadName);}
+public void run(){
+try{
+for(int i=0; i<5; i++){
+System.out.println(i + ": " + 
+this.t.getName());
+Thread.sleep(1000);
+}
+}catch(Exception e){}
+System.out.println("Exiting...");
+}
+}
+class Main{
+public static void main(String args[]){
+// creating two thread to run concurrently
+new ThreadDemo("Thread1").t.start();
+new ThreadDemo("Thread2").t.start();
+}
+}
+13 | P a g e
+Output:
+9. Write a java program to display a Analog Clock using Applet.
+Source Code:
+/*Java Program to Display a Clock using Applet*/
+import java.applet.*;
+import java.awt.*;
+import java.util.*;
+public class AnalogClock extends Applet implements Runnable
+{
+Thread t;
+public void init()
+{
+setBackground(Color.cyan);
+}
+public void start()
+{
+t = new Thread(this);
+t.start();
+}
+public void run()
+{
+while(true)
+{
+try
+{
+repaint();
+Thread.sleep(1000);
+}
+catch(Exception e)
+{
+}
+}
+}
+14 | P a g e
+public void paint(Graphics g)
+{
+Calendar time = Calendar.getInstance();
+int hour = time.get(Calendar.HOUR_OF_DAY) % 12;
+int minute = time.get(Calendar.MINUTE);
+int second = time.get(Calendar.SECOND);
+double angle;
+int x,y;
+g.drawOval(100,100,300,300);
+String s="12";
+int i=0;
+while(i<12)
+{
+angle = Math.toRadians(30*(i-3));
+x = 250+(int)(Math.cos(angle)*135);
+y = 250+(int)(Math.sin(angle)*135);
+g.drawString(s,x,y);
+i++;
+s=String.valueOf(i);
+}
+g.setColor(Color.magenta);
+angle = Math.toRadians((30*hour)-90);
+x = 250+(int)(Math.cos(angle)*100);
+y = 250+(int)(Math.sin(angle)*100);
+g.drawLine(250,250,x,y);
+g.setColor(Color.red);
+angle = Math.toRadians((6*minute)-90);
+x = 250+(int)(Math.cos(angle)*115);
+y = 250+(int)(Math.sin(angle)*115);
+g.drawLine(250,250,x,y);
+g.setColor(Color.blue);
+angle = Math.toRadians((6*second)-90);
+x = 250+(int)(Math.cos(angle)*130);
+y = 250+(int)(Math.sin(angle)*130);
+g.drawLine(250,250,x,y);
+}
+}
+15 | P a g e
+Output:
+10.Write a java Program to Demonstrate a Basic Calculator using Applet.
+Source Code:
+/*Java Program to Demonstrate a Basic Calculator using Applet*/
+import java.awt.*;
+import java.applet.*;
+import java.awt.event.*;
+public class Calculator extends Applet implements ActionListener
+{
+ TextField t1;
+ 
+ public void init()
+ {
+setBackground(Color.white);
+setLayout(null);
+int i;
+t1=new TextField();
+t1.setBounds(150,100,270,50);
+this.add(t1);
+Button button[]=new Button[10];
+for(i=0;i<10;i++)
+{
+ button[i]=new Button(String.valueOf(9-i));
+ button[i].setBounds(150+((i%3)*50),150+((i/3)*50),50,50);
+ this.add(button[i]);
+ button[i].addActionListener(this);
+}
+Button dot=new Button(".");
+dot.setBounds(200,300,50,50);
+this.add(dot);
+dot.addActionListener(this);
+Button clr=new Button("C");
+clr.setBounds(250,300,50,50);
+16 | P a g e
+this.add(clr);
+clr.addActionListener(this);
+Button operator[]=new Button[5];
+operator[0]=new Button("/");
+operator[1]=new Button("*");
+operator[2]=new Button("-");
+operator[3]=new Button("+");
+operator[4]=new Button("=");
+for(i=0;i<4;i++)
+{
+ operator[i].setBounds(300,150+(i*50),50,50);
+ this.add(operator[i]);
+ operator[i].addActionListener(this);
+}
+operator[4].setBounds(350,300,70,50);
+this.add(operator[4]);
+operator[4].addActionListener(this);
+ }
+ String num1="";
+ String op="";
+ String num2="";
+ 
+ public void actionPerformed(ActionEvent e)
+ {
+String button=e.getActionCommand();
+ char ch=button.charAt(0);
+if(ch>='0'&&ch<='9'||ch=='.') 
+{ 
+ if (!op.equals("")) 
+num2=num2+button; 
+ else
+num1=num1+button; 
+ t1.setText(num1+op+num2); 
+} 
+else if(ch=='C') 
+{ 
+ num1=op=num2=""; 
+ t1.setText(""); 
+}
+else if (ch =='=') 
+{ 
+ if(!num1.equals("") && !num2.equals(""))
+ {
+double temp;
+double n1=Double.parseDouble(num1);
+double n2=Double.parseDouble(num2);
+if(n2==0 && op.equals("/"))
+{
+ t1.setText(num1+op+num2+" = Zero Division Error");
+17 | P a g e
+ num1=op=num2="";
+}
+else
+{
+ if (op.equals("+")) 
+ temp = n1 + n2; 
+ else if (op.equals("-")) 
+ temp = n1 - n2; 
+ else if (op.equals("/")) 
+ temp = n1/n2; 
+ else
+ temp = n1*n2; 
+ t1.setText(num1+op+num2+" = "+temp); 
+ num1 = Double.toString(temp);
+ op = num2 = ""; 
+ }
+ }
+ else
+ {
+num1=op=num2=""; 
+t1.setText("");
+ }
+ } 
+else 
+{ 
+ if (op.equals("") || num2.equals("")) 
+op = button; 
+ else 
+ { 
+double temp;
+double n1=Double.parseDouble(num1);
+double n2=Double.parseDouble(num2);
+if(n2==0 && op.equals("/"))
+{
+ t1.setText(num1+op+num2+" = Zero Division Error");
+ num1=op=num2="";
+}
+else
+{
+ if (op.equals("+")) 
+ temp = n1 + n2; 
+ else if (op.equals("-")) 
+ temp = n1 - n2; 
+ else if (op.equals("/")) 
+ temp = n1/n2; 
+ else
+ temp = n1*n2; 
+ num1 = Double.toString(temp); 
+ op = button; 
+ num2 = ""; 
+18 | P a g e
+ }
+ }
+ t1.setText(num1+op+num2);
+ }
+ }
+}
+/*
+<applet code="Calculator.class" width="500" height="500">
+</applet>
+*/
+Output:
+19 | P a g e
+11. Write a java Program to print concentric circle using Applet.
+Source Code:
+import java.applet.*;
+import java.awt.*;
+import java.util.*;
+public class ConcentricCircle extends Applet
+{
+ public void init()
+ {
+setBackground(Color.white);
+ }
+ public void paint(Graphics g)
+ {
+Random rg=new Random();
+int rad=25;
+int dia=50;
+for(int i=0;i<5;i++)
+{
+ int r=rg.nextInt(255);
+ int gr=rg.nextInt(255);
+ int b=rg.nextInt(255);
+ Color c=new Color(r,gr,b);
+ g.setColor(c);
+ g.drawOval(250-(i*rad),250-(i*rad),(i+1)*dia,(i+1)*dia);
+}
+ }
+}
+Output:
+.
+20 | P a g e
+12.Write a java Program to draw Digital Clock using Applet
+Source Code:
+import java.applet.*; 
+import java.awt.*; 
+import java.util.*; 
+import java.text.*; 
+ 
+public class DigitalClock extends Applet implements Runnable 
+{ 
+Thread t = null; 
+int hours=0, minutes=0, seconds=0; 
+String timeString = ""; 
+ 
+public void init() 
+{ 
+setBackground( Color.cyan); 
+} 
+public void start() 
+{ 
+t=new Thread( this ); 
+t.start(); 
+} 
+public void run() 
+{ 
+try 
+{ 
+while (true)
+{ 
+Calendar cal = Calendar.getInstance(); 
+hours = cal.get( Calendar.HOUR_OF_DAY ); 
+if ( hours > 12 ) hours -= 12; 
+minutes = cal.get( Calendar.MINUTE ); 
+seconds = cal.get( Calendar.SECOND ); 
+SimpleDateFormat formatter = new 
+SimpleDateFormat("hh:mm:ss"); 
+Date date = cal.getTime(); 
+timeString = formatter.format( date ); 
+repaint(); 
+Thread.sleep( 1000 ); 
+} 
+} 
+catch (Exception e){} 
+} 
+public void paint( Graphics g ) 
+{ 
+g.setColor(Color.blue); 
+g.drawString( timeString, 50, 50 ); 
+21 | P a g e
+} 
+} 
+ Output:
+13.Write a java Program to draw INDIAN FLAG.
+Source Code:
+//WAP to draw the indian flag
+import java.awt.*;
+import java.applet.*;
+public class flag extends Applet
+{
+public void paint(Graphics g)
+{
+g.setColor(Color.black);
+g.fillRect(150,50,10,500);
+g.setColor(Color.orange);
+g.fillRect(160,50,200,50);
+g.setColor(Color.white);
+g.fillRect(160,100,200,50);
+g.setColor(Color.green);
+g.fillRect(160,150,200,50);
+22 | P a g e
+g.setColor(Color.blue);
+g.drawOval(240,100,50,50);
+g.drawLine(265,100,265,150);
+g.drawLine(240,125,290,125);
+g.drawLine(280,107,250,143);
+g.drawLine(250,107,280,145);
+g.drawLine(258,102,272,147);
+g.drawLine(273,102,258,147);
+g.drawLine(287,115,245,135);
+g.drawLine(245,115,287,135);
+}
+}
+Output:
+23 | P a g e
+14. Write a java program to display the mouse motion listener.
+Source Code:
+import java.awt.*;
+import java.awt.event.*;
+import java.applet.*;
+public class MouseMotionListenerDemo extends Applet implements 
+MouseMotionListener
+{
+String txt="", msg="";
+int x=100,y=50,cx=0,cy=0;
+public void init()
+{
+addMouseMotionListener(this);
+}
+public void mouseDragged(MouseEvent m)
+{
+txt="Mouse Dragged";
+repaint();
+}
+public void mouseMoved(MouseEvent m)
+{
+cx=m.getX();
+cy=m.getY();
+msg="("+cx+","+cy+")";
+repaint();
+}
+public void paint(Graphics g)
+{
+g.setFont(new Font("name",1,20));
+g.drawString(msg,cx,cy);
+g.drawString(txt,x,y);
+}
+}
+Output:
+24 | P a g e
+15. Write a java program to draw a Sand Clock.
+Source Code:
+import java.awt.EventQueue;
+import javax.swing.JFrame;
+import java.awt.*;
+import java.applet.*;
+public class Main extends JFrame {
+ public static void main(String[] args) {
+ new Main();
+ }
+ public Main() {
+ EventQueue.invokeLater(() -> {
+ Canvas c = new Canvas(0, 3);
+ setContentPane(c);
+ pack();
+ setSize(400, 400);
+ setBackground(Color.WHITE);
+ setLocationRelativeTo(null);
+ setVisible(true);
+ });
+ }
+}
+/* <applet code = "Main.class weidth =300 height=300>
+</applet>*/
+25 | P a g e
+Output:
+16. Write a java program to draw Night View using Applet.
+Source Code:
+import java.applet.*;
+import java.awt.*;
+public class View extends Applet{
+public void paint(Graphics g){
+g.setColor(new Color(15,20,75));
+g.fillRect(100,100,200,100);
+// moon
+g.setColor(new Color(247,249,219));
+g.fillOval(240,120,40,40);
+g.setColor(new Color(15,20,75));
+g.fillOval(240,120,30,30);
+// stars
+g.setColor(new Color(247,249,219));
+g.fillOval(134,167,5,5);
+g.fillOval(174,147,3,3);
+}
+}
+26 | P a g e
+Output:
+17. Write a Java Program to built in own exception?
+Source Code:
+WAPto built in own exception?
+import java.util.*;
+class NotEligible extends Exception
+{
+NotEligible(String msg)
+{
+super(msg);
+}
+}
+public class VoterList
+{
+int age;
+VoterList(int a)
+{
+age=a;
+}
+void check()
+{
+try
+{
+if(age<18)
+{
+throw new NotEligible("Not eligible");
+}
+System.out.println("You are eligible");
+}
+27 | P a g e
+catch(NotEligible e)
+{
+System.out.println(e.getMessage());
+}
+}
+public static void main(String[] args)
+{
+Scanner sc= new Scanner(System.in);
+System.out.print("Enter your age in years: ");
+int age=sc.nextInt();
+VoterList per=new VoterList(age);
+per.check();
+}
+}
+Output:
+18. Write a java Program to design a banner using applet.
+Source Code:
+import java.applet.*;
+import java.awt.*;
+public class Banner extends Applet{
+ public void paint(Graphics g){
+ g.drawString("Hello Applet", 20, 20);
+ }
+}
+28 | P a g e
+Output:
+19. Write a java program for displaying multiple bouncing balls.
+Source Code:
+import java.applet.*;
+import java.awt.*;
+import java.awt.event.*;
+/*
+<applet code="BOUNCINGBALLS.class" width=500 height=400>
+</applet>
+*/
+public class BOUNCINGBALLS extends Applet implements MouseListener, 
+Runnable {
+Thread t = null;
+int x1 = 10, x2 = 10, x3 = 10, x4 = 10;
+int y1 = 300, y2 = 300, y3 = 300, y4 = 300;
+int flagx1, flagy1, flagx2, flagy2;
+int flagx3, flagy3, flagx4, flagy4;
+public void init()
+{
+setBackground(Color.yellow);
+addMouseListener(this);
+}
+public void mouseExited(MouseEvent me) {}
+public void mouseReleased(MouseEvent me) {}
+public void mouseEntered(MouseEvent me) {}
+public void mousePressed(MouseEvent me) {}
+public void mouseClicked(MouseEvent me) {}
+public void start()
+{
+t = new Thread(this);
+t.start();
+}
+29 | P a g e
+public void run()
+{
+for (;;)
+{
+try
+{
+repaint();
+if (y1 <= 50)
+flagx1 = 0;
+else if (y1 >= 300)
+flagx1 = 1;
+if (x1 <= 10)
+flagy1 = 0;
+else if (x1 >= 400)
+flagy1 = 1;
+if (y2 <= 50)
+flagx2 = 0;
+else if (y2 >= 300)
+flagx2 = 1;
+if (x2 <= 10)
+flagy2 = 0;
+else if (x2 >= 400)
+flagy2 = 1;
+if (y3 <= 50)
+flagx3 = 0;
+else if (y3 >= 300)
+flagx3 = 1;
+if (x3 <= 10)
+flagy3 = 0;
+else if (x3 >= 400)
+flagy3 = 1;
+if (y4 <= 50)
+flagx4 = 0;
+else if (y4 >= 300)
+flagx4 = 1;
+if (x4 <= 10)
+flagy4 = 0;
+else if (x4 >= 400)
+flagy4 = 1;
+Thread.sleep(10);
+} catch (InterruptedException e) {}
+}
+}
+public void paint(Graphics g)
+{
+g.setColor(Color.white);
+g.drawRect(10, 50, 410, 270);
+g.setColor(Color.blue);
+g.fillOval(x1, y1, 20, 20);
+if (flagx1 == 1)
+30 | P a g e
+y1 -= 2;
+else if (flagx1 == 0)
+y1 += 2;
+if (flagy1 == 0)
+x1 += 4;
+else if (flagy1 == 1)
+x1 -= 4;
+g.setColor(Color.red);
+g.fillOval(x2, y2, 20, 20);
+if (flagx2 == 1)
+y2 -= 4;
+else if (flagx2 == 0)
+y2 += 4;
+if (flagy2 == 0)
+x2 += 3;
+else if (flagy2 == 1)
+x2 -= 3;
+g.setColor(Color.yellow);
+g.fillOval(x3, y3, 20, 20);
+if (flagx3 == 1)
+y3 -= 6;
+else if (flagx3 == 0)
+y3 += 6;
+if (flagy3 == 0)
+x3 += 2;
+else if (flagy3 == 1)
+x3 -= 2;
+g.setColor(Color.magenta);
+g.fillOval(x4, y4, 20, 20);
+if (flagx4 == 1)
+y4 -= 5;
+else if (flagx4 == 0)
+y4 += 5;
+if (flagy4 == 0)
+x4 += 1;
+else if (flagy4 == 1)
+x4 -= 1;
+}
+}
+Output:
+31 | P a g e
+20. Write a java program to draw Ashokachakra.
+Source Code:
+import java.awt.*;
+import java.applet.*;
+public class flag extends Applet
+{
+public void paint(Graphics g)
+{
+g.setColor(Color.blue);
+g.drawOval(240,100,50,50);
+g.drawLine(265,100,265,150);
+g.drawLine(240,125,290,125);
+g.drawLine(280,107,250,143);
+g.drawLine(250,107,280,145);
+g.drawLine(258,102,272,147);
+g.drawLine(273,102,258,147);
+g.drawLine(287,115,245,135);
+g.drawLine(245,115,287,135);
+32 | P a g e
+}
+}
+Output:
+21. Write a java program to show Keyboard Handling.
+Source Code:
+AccessKeyboard.java
+import java.awt.*;
+import java.awt.event.*;
+import java.applet.*;
+public class AccessKeyboard extends Applet implements KeyListener
+{
+String msg;
+public void init()
+{
+setBackground(Color.green);
+addKeyListener(this);
+requestFocus();
+msg="";
+}
+public void keyPressed(KeyEvent k)
+{
+}
+public void keyReleased(KeyEvent k)
+{
+}
+public void keyTyped(KeyEvent k)
+{
+msg=msg+k.getKeyChar();
+repaint();
+}
+public void paint(Graphics g)
+33 | P a g e
+{
+g.setFont(new Font("Arial",Font.BOLD,30));
+g.drawString(msg,50,50);
+}
+}
+AccessKeyboard.html
+<applet code="AccessKeyboard" width=500 height=400>
+</applet>
+Output:
+22. Write a java program to display size & font of a text.
+Source Code:
+import java.awt.*;
+import java.applet.*;
+public class FrontDemo extends Applet
+{
+Font f=new Font("Arial",Font.BOLD,20);
+public void init()
+{
+setBackground( Color.cyan);
+}
+public void paint(Graphics g)
+{
+g.setFont(f);
+g.drawString("Java Programming",80,80);
+String name=f.getName();
+int size=f.getSize();
+g.drawString("Front Name: "+name,80,120);
+g.drawString("Front size: "+size,80,160);
+34 | P a g e
+}
+}
+<applet code="FrontDemo.class" width=200 height=200>
+</applet>
+Output:
+23. Write a java program to draw different types of rectangle using Applet.
+Source Code:
+import java.applet.*;
+import java.awt.*;
+public class Rectangle extends Applet
+{
+public void init()
+{
+setBackground(Color.white);
+}
+public void paint(Graphics g)
+{
+g.setColor(Color.black);
+g.drawString("Rectangle",100,30);
+g.setColor(Color.green);
+g.drawRect(100,50,100,50);
+g.fillRect(100,50,100,50);
+g.setColor(Color.black);
+g.drawString("Squre",300,30);
+g.setColor(Color.blue);
+g.drawRect(300,50,50,50);
+g.fillRect(300,50,50,50);
+g.setColor(Color.black);
+g.drawString("Parallelogram",100,180);
+35 | P a g e
+g.setColor(Color.red);
+int x[]=new int[]{100,150,130,80};
+int y[]=new int[]{200,200,250,250};
+g.drawPolygon(x,y,4);
+g.fillPolygon(x,y,4);
+g.setColor(Color.black);
+g.drawString("Rhombus",290,130);
+g.setColor(Color.yellow);
+x=new int[]{290,320,350,320};
+y=new int[]{200,150,200,250};
+g.drawPolygon(x,y,4);
+g.fillPolygon(x,y,4);
+g.setColor(Color.black);
+g.drawString("Trapezium",300,290);
+g.setColor(Color.pink);
+x=new int[]{310,340,360,290};
+y=new int[]{300,300,350,350};
+g.drawPolygon(x,y,4);
+g.fillPolygon(x,y,4);
+}
+}
+Output:
+24. Write a java program to count no. of vowels in a string.
+Source Code:
+import java.util.Scanner;
+public class VowelCounter {
+ public static void main(String[] args) {
+ Scanner scanner = new Scanner(System.in);
+ System.out.print("Enter a string: ");
+36 | P a g e
+ String input = scanner.nextLine();
+ int vowelCount = countVowels(input);
+ System.out.println("Number of vowels: " + vowelCount);
+ }
+ public static int countVowels(String str) {
+ int count = 0;
+ str = str.toLowerCase(); // Convert the string to lowercase 
+for case-insensitive matching
+ for (int i = 0; i < str.length(); i++) {
+ char ch = str.charAt(i);
+ if (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch 
+== 'u') {
+ count++;
+ }
+ }
+ return count;
+ }
+}
+Output:
+25. Write a java program to count no. of characters in a file.
+Source Code:
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+public class WordCountInFile 
+{ 
+ public static void main(String[] args) 
+ {
+ BufferedReader reader = null;
+ 
+ //Initializing charCount, wordCount and lineCount to 0
+ 
+ int charCount = 0;
+ 
+ int wordCount = 0;
+37 | P a g e
+ 
+ int lineCount = 0;
+ 
+ try
+ {
+ //Creating BufferedReader object
+ 
+ reader = new BufferedReader(new FileReader("sample.txt"));
+ 
+ //Reading the first line into currentLine
+ 
+ String currentLine = reader.readLine();
+ 
+ while (currentLine != null)
+ {
+ //Updating the lineCount
+ 
+ lineCount++;
+ 
+ //Getting number of words in currentLine
+ 
+ String[] words = currentLine.split(" ");
+ 
+ //Updating the wordCount
+ 
+ wordCount = wordCount + words.length;
+ 
+ //Iterating each word
+ 
+ for (String word : words)
+ {
+ //Updating the charCount
+ 
+ charCount = charCount + word.length();
+ }
+ 
+ //Reading next line into currentLine
+ 
+ currentLine = reader.readLine();
+ }
+ 
+ //Printing charCount, wordCount and lineCount
+ 
+ System.out.println("Number Of Chars In A File : 
+"+charCount);
+ 
+ } 
+ catch (IOException e) 
+ {
+ e.printStackTrace();
+ }
+ finally
+ {
+ try
+ {
+ reader.close(); //Closing the reader
+ }
+38 | P a g e
+ catch (IOException e) 
+ {
+ e.printStackTrace();
+ }
+ }
+ } 
+}
+Output:
+26. Write a java program to for implementing the railway reservation 
+system using packages.
+Source Code:
+Booking.java
+package Package1;
+class train_details
+{
+String des,src,tname;
+int at,dt;
+int seat[]=new int[5];
+int price[]=new int[5];
+train_details(String d)
+{
+des=d;
+seat[0]=100;
+price[0]=2000;
+seat[1]=60;
+price[1]=1200;
+seat[2]=120;
+price[2]=1000;
+seat[3]=80;
+price[3]=1100;
+seat[4]=40;
+price[4]=1500;
+}
+39 | P a g e
+void details()
+{
+"+price[0]);
+"+price[1]);
+"+price[2]);
+"+price[3]);
+System.out.println("The following trains are availabe : ");
+System.out.println("\n1.Rajdhani Express\t10:00 a.m\tSealdah Station 
+"+seat[0]+"
+System.out.println("\n2.Satabdi Express\t05:00p.m\tHowrah 
+Station"+seat[1]+"
+System.out.println("\n3.Humsafar Express\t11:00 p.m\tkolkata 
+Chitpur"+seat[2]+"
+System.out.println(" \n4.Garib-Rath Express\t05:00p.m\tSealdah 
+Station"+seat[3]+"
+System.out.println("\n5.Duronto Express \t07:00a.m \t Santragrachi 
+Station
+"+seat[4]+" "+price[4]);
+}
+}
+class Passenger extends train_details
+{
+String name,gender;
+float age;
+Passenger(String sname,String gen,float ag,String d)
+{
+super(d);
+name=sname;
+gender=gen;
+age=ag;
+}
+void details()
+{
+super.details();
+}
+void display()
+{
+System.out.println("Passenger Name : "+name);
+System.out.println("Passeenger gender : "+gender);
+System.out.println("Passenger age : "+age);
+}
+}
+public class Booking extends Passenger
+{
+int tno,amount;
+public Booking(int n,String sname,String gen,float ag,String d)
+{
+super(sname,gen,ag,d);
+tno=n;
+}
+40 | P a g e
+public void bill(int ch)
+{
+switch(ch)
+{
+case 1:
+case 2:
+case 3:
+case 4:
+case 5:
+}
+tname="Rajdhani Express";
+src="Sealdah Station";
+amount=price[0];
+seat[0]=seat[0]-1;
+break;
+tname="Satabdi Express";
+src="Howrah Station";
+amount=price[1];
+seat[1]=seat[1]-1;
+break;
+tname="Humsafar Express";
+src="kolkata Chitpur";
+amount=price[2];
+seat[2]=seat[2]-1;
+break;
+tname="Garib-Rath Express";
+src="Sealdah Station";
+amount=price[3];
+seat[3]=seat[3]-1;
+break;
+tname="Duronto Express";
+src="santragrachi Station";
+amount=price[4];
+seat[4]=seat[4]-1;
+break;
+}
+public void details()
+{
+super.details();
+}
+public void display()
+{
+super.display();
+System.out.println("total amount : "+amount);
+System.out.println("Train name : "+tname);
+System.out.println("Source station : "+src);
+}
+}
+Railway.java
+import Package1.*;
+41 | P a g e
+import java.util.*;
+public class Railway
+{
+public static void main(String args[])
+{
+int t,dt,at,s,pri,age,tno,ch;
+String tname,des,src,pname,gen;
+Scanner sc=new Scanner(System.in);
+System.out.print("Enter destination station : ");
+des=sc.next();
+System.out.print("Enter Passenger name : ");
+pname=sc.next();
+System.out.print("Enter passenger gender : ");
+gen=sc.next();
+System.out.print("Enter passenger age : ");
+age=sc.nextInt();
+System.out.print("Enter Ticket no : ");
+tno=sc.nextInt();
+Booking ob=new Booking(tno,pname,gen,age,des);
+ob.details();
+System.out.print("Enter your choice : ");
+ch=sc.nextInt();
+ob.bill(ch);
+ob.display();
+}
+}
+Output:
+42 | P a g e
+27. Write a java program for mouse eventlisner for event model.
+Source Code:
+import java.awt.*;
+import java.awt.event.*;
+import java.applet.*;
+MouseListenerDemo.java
+public class MouseListenerDemo extends Applet implements MouseListener
+{
+String txt="", msg="";
+int x=100,y=50,cx=0,cy=0;
+public void init()
+{
+addMouseListener(this);
+}
+public void mouseClicked(MouseEvent m)
+{
+txt="Mouse clicked";
+repaint();
+}
+public void mouseEntered(MouseEvent m)
+{
+txt="Mouse Entered";
+repaint();
+}
+public void mouseExited(MouseEvent m)
+{
+txt="Mouse Exited";
+repaint();
+}
+public void mousePressed(MouseEvent m)
+{
+txt="Mouse Pressed";
+setForeground(Color.blue);
+repaint();
+}
+public void mouseReleased(MouseEvent m)
+{
+txt="Mouse Released";
+setForeground(Color.red);
+repaint();
+}
+public void paint(Graphics g)
+{
+g.setFont(new Font("name",1,20));
+//g.drawString(msg,cx,cy);
+g.drawString(txt,x,y);
+}
+43 | P a g e
+}
+MouseListenerDemo.html
+<applet code="MouseListenerDemo.class" width=600 height=300>
+</applet>
+Output:
+44 | P a g e
+28. Write a java program to implement Stack.
+Source Code:
+import java.util.Scanner;
+class Stack
+{
+private int top;
+private int[] s;
+private int maxSize;
+public Stack(int n)
+{
+maxSize=n;
+top=-1;
+s=new int[maxSize];
+}
+public boolean isFull()
+{
+if(top==(maxSize-1))
+return true;
+return false;
+}
+public boolean isEmpty()
+{
+if(top==(-1))
+return true;
+return false;
+}
+public void push(int e)
+{
+if(isFull())
+System.out.println("Stack is overflow");
+else
+{
+}
+}
+top++;
+s[top]=e;
+public int pop()
+{
+if(isEmpty())
+{
+}
+else
+{
+}
+System.out.println("Stack is Underflow");
+return(0);
+int e=s[top];
+top--;
+45 | P a g e
+return(e);
+}
+public void display()
+{
+System.out.println("\nShow Stack");
+for(int i=top;i>=0;i--)
+{
+System.out.print(s[i]);
+}
+System.out.print("\n");
+}
+}
+class Stack_test
+{
+public static void main(String[] args)
+{
+int size,data,choice;
+Scanner sc=new Scanner(System.in);
+System.out.print("Enter the size of the stack: ");
+size=sc.nextInt();
+Stack s=new Stack(size);
+while(true)
+{
+System.out.println("Stack operation using array");
+System.out.println("\n1.Push\n2.Pop\n3.Show\n4.Exit");
+System.out.print("\nEnter your choice: ");
+choice=sc.nextInt();
+switch(choice)
+{
+case 1:
+{
+}
+case 2:
+{
+}
+case 3:
+{
+}
+case 4:
+{
+}
+System.out.print("\nEnter new element: ");
+data=sc.nextInt();
+s.push(data);
+break;
+data=s.pop();
+System.out.println("\nDeleted data is : "+data);
+break;
+s.display();
+break;
+46 | P a g e
+System.out.println("Exit");
+System.exit(0);
+break;
+default:
+{
+System.out.println("Please Enter valid choice");
+}
+}
+}
+}
+}
+Output:
+47 | P a g e
+29. Write a java program to implement I/O system.
+Source Code:
+import java.io.*;
+class InputOutput{
+ public static void main(String[] args) throws IOException{
+ BufferedReader Res = new BufferedReader (new 
+InputStreamReader(System.in));
+ System.out.print("Please Enter Any Digit you want to Print : 
+");
+ int Number = Integer.parseInt(Res.readLine());
+ System.out.println("The Digit You Entered is :" + Number);
+ }
+ 
+}
+Output:
+30. Write a java program for demonstrates the checkbox & checkbox 
+group.
+Source Code:
+import java.awt.*;
+import java.awt.event.*;
+import java.applet.Applet;
+public class CheckBoxChoice extends Applet implements ItemListener {
+Checkbox c1, c2, c3;
+Label l;
+public void init() {
+setLayout(new GridLayout(3, 2, 1, 1));
+Panel p1 = new Panel();
+Panel p2 = new Panel();
+p1.setLayout(new GridLayout(3, 1));
+p2.setLayout(new GridLayout(1, 2));
+c1 = new Checkbox("Checkbox 1");
+p1.add(c1);
+c1.addItemListener(this);
+c2 = new Checkbox("Checkbox 2");
+p1.add(c2);
+c2.addItemListener(this);
+c3 = new Checkbox("CheckBox 3");
+p1.add(c3);
+c3.addItemListener(this);
+48 | P a g e
+l = new Label("");
+p2.add(l);
+add(p1);
+add(p2);
+}
+public void itemStateChanged(ItemEvent e) {
+c1.setForeground(Color.BLACK);
+c2.setForeground(Color.BLACK);
+c3.setForeground(Color.BLACK);
+String selected = "";
+if (c1.getState()) {
+selected += "1";
+c1.setForeground(Color.BLUE);
+}
+if (c2.getState()) {
+if (!selected.isEmpty())
+selected += ", ";
+selected += "2";
+c2.setForeground(Color.BLUE);
+}
+if (c3.getState()) {
+if (!selected.isEmpty())
+selected += ", ";
+selected += "3";
+c3.setForeground(Color.BLUE);
+}
+selected += " Checkbox selected";
+l.setText(selected);
+}
+}
+// <applet code="CheckBoxChoice.class" width="500"
+// height="500"></applet>
+Output:
+49 | P a g e
